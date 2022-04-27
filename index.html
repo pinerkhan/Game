@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		.box{
+			background-size: 100% 100%;
+			width:150px;
+			height:150px;
+			position:absolute;
+			transition:1s;
+		}
+		.main{
+			background-image:url(https://kartinkin.net/uploads/posts/2021-07/thumbs/1625509588_6-kartinkin-com-p-fon-dlya-skretcha-krasivie-foni-6.jpg);
+			background-size: 100% 100%;
+			height:1000px;
+		}
+	</style>
+</head>
+<body class = "main">
+	<h1> Количество очков:  <span class = "score"> 0 </span> Из 20 </h1>
+	<h1> Осталось времени: <span class = "date"> 10 </span> </h1>
+	<script>
+		let int1;
+		let time = 10;
+		let date = document.querySelector(".date")
+		let int2;
+		let int3;
+		let box = document.querySelector(".box")
+		let score = 0
+		let score1 = document.querySelector(".score")
+		let left = 0
+		function random(number){
+			let num = Math.random() * number
+			let num1 = Math.round(num)
+			return num1
+		}
+		let top_coord = [200, 400, 600]
+    	function create(){
+    		let soldier = document.createElement("div")
+			let soldiershoot = document.querySelector(".duck")
+			document.body.appendChild(soldier)
+			soldier.classList.add("box")
+			let x = random(1600)
+			soldier.style.left = x + "px"
+			soldier.style.top = top_coord[random(2)] + "px"
+
+			let randomImage = random(2)
+
+			if(randomImage == 0){
+				soldier.style.backgroundImage = "url('1-removebg-preview.png')"
+				soldier.style.backgroundSize = "100% 100%"
+				soldier.type = "ok"
+			}
+			else if(randomImage == 1){
+				soldier.style.backgroundImage = "url('2-removebg-preview.png')"
+				soldier.style.backgroundSize = "100% 100%"
+				soldier.type = "good"
+			}
+			else if(randomImage == 2){
+				soldier.style.backgroundImage = "url('3-removebg-preview.png')"
+				soldier.style.backgroundSize = "100% 100%"
+				soldier.type = "terrible"
+			}
+			soldier.onclick = function(){
+				soldier.style.display = "none"
+				if(soldier.type == "ok"){
+					score = score + 1
+					score1.innerHTML = score
+					if(score >= 20){
+						alert("We have won!")
+						clearInterval(int1)
+						cleatTimeout(int3)
+					document.querySelector(".main").style.display = "none"
+					}
+				}else if(soldier.type == "good"){
+					score = score + 2
+					score1.innerHTML = score
+					if(score >= 20){
+						alert("We have won!")
+						clearInterval(int1)
+						cleatTimeout(int3)
+					document.querySelector(".main").style.display = "none"
+					}
+				}else if(soldier.type == "terrible"){
+					alert("It's your soldier!")
+					score = score - 2
+					score1.innerHTML = score
+					if(score >= 20){
+						alert("We have won!")
+						clearInterval(int1)
+						document.querySelector(".main").style.display = "none"
+					}
+				}
+			}
+				function move(){
+					x = x - 50
+					soldier.style.left = x + "px"
+				}
+				int2 = setInterval(move, 1000)
+
+    	}
+    	let int4;
+		function counts(){
+			time = time - 1
+			date.innerHTML = time;
+		}
+		int4 = setInterval(counts,1000)
+		int1 = setInterval(create, 500)
+    	function finish(){
+    		clearInterval(int1)
+    		document.querySelector(".main").style.display = "none"
+    		clearInterval(int4)
+    	}
+
+    	int3 = setTimeout(finish, 10000)
+	</script>
+</body>
+</html>
